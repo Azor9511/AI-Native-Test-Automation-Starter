@@ -15,7 +15,12 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [windows-latest, macos-latest, ubuntu-latest]
+        # Windows + Ubuntu only: hosted macOS runners were unreliable
+        # for this account even after the repo went public (jobs sat
+        # queued then cancelled). Uncomment macos-latest to retry
+        # later — it adds BSD coverage of the .sh script.
+        os: [windows-latest, ubuntu-latest]
+        # os: [windows-latest, macos-latest, ubuntu-latest]
     steps:
       - uses: actions/checkout@v4
 
