@@ -17,14 +17,14 @@ jobs:
       matrix:
         os:
           - windows-latest
-          - macos-latest
-          # - ubuntu-latest
-          # Disabled: the two student platforms are Windows and macOS;
-          # the .sh paths validated on Ubuntu are nearly identical to
-          # macOS. Re-enable if Linux CI coverage is wanted.
-          # NOTE: hosted macOS runners may sit queued then cancel on
-          # private repos under the free plan — if cancelled macOS
-          # runs are noise, comment it too until the repo is public.
+          - ubuntu-latest
+          # - macos-latest
+          # Disabled: hosted macOS runners do not provision for
+          # private repos on the free plan — jobs sit queued ~15 min
+          # then get cancelled, failing the run. Re-enable when the
+          # repo goes public or the account upgrades; Ubuntu covers
+          # the same .sh logic meanwhile (GNU vs BSD differences are
+          # minimal in this script).
     steps:
       - uses: actions/checkout@v4
 
