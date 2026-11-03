@@ -128,12 +128,23 @@ Write-Host "Passed:   $script:PassCount"
 Write-Host "Warnings: $script:WarnCount"
 Write-Host "Failed:   $script:FailCount"
 Write-Host ""
+$exitCode = 0
 if ($script:FailCount -eq 0) {
     Write-Host "STATUS: READY"
 } else {
     Write-Host "STATUS: ACTION REQUIRED"
     Write-Host "See docs/troubleshooting.md for resolution steps."
-    # Signal failure to CI/automation without closing an interactive
-    # PowerShell session (unlike `exit 1`).
-    [Environment]::ExitCode = 1
+    $exitCode = 1
 }
+
+# Exit code handling: `exit` inside a script would close an
+# interactive PowerShell window, so it is only used in CI /
+# non-interactive contexts. In interactive sessions the process exit
+# code is set for when the host eventually closes, and the summary
+# above is what the student reads. Without this, pwsh would propagate
+# the exit code of the last external command (e.g. `git config`
+# returning 1 for an unset value) instead of the validation result.
+if ($env:CI -eq 'true' -or -not [Environment]::UserInteractive) {
+    exit $exitCode
+}
+[Environment]::ExitCode = $exitCode
