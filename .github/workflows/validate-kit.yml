@@ -15,16 +15,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os:
-          - windows-latest
-          - ubuntu-latest
-          # - macos-latest
-          # Disabled: hosted macOS runners do not provision for
-          # private repos on the free plan — jobs sit queued ~15 min
-          # then get cancelled, failing the run. Re-enable when the
-          # repo goes public or the account upgrades; Ubuntu covers
-          # the same .sh logic meanwhile (GNU vs BSD differences are
-          # minimal in this script).
+        os: [windows-latest, macos-latest, ubuntu-latest]
     steps:
       - uses: actions/checkout@v4
 
