@@ -1,6 +1,6 @@
 # Keeps the Starter Kit itself healthy: runs both environment
-# validators on every supported platform so broken scripts or docs
-# drift are caught before students hit them.
+# validators so broken scripts or docs drift are caught before
+# students hit them.
 name: Validate Starter Kit
 
 on:
@@ -10,27 +10,21 @@ on:
 
 jobs:
   verify-environment:
-    name: ${{ matrix.os }}${{ matrix.optional && ' (best-effort)' || '' }}
+    name: ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
-    continue-on-error: ${{ matrix.optional }}
     strategy:
       fail-fast: false
       matrix:
-        include:
-          # Required checks — hosted Windows/Linux runners provision
-          # reliably on free plans.
-          - os: windows-latest
-            optional: false
-          - os: ubuntu-latest
-            optional: false
-          # Best-effort: hosted macOS runners are frequently
-          # unavailable for private repos on free plans — jobs sit
-          # queued ~15 min then get cancelled. Kept so the .sh is
-          # still validated on real BSD tools when a runner is
-          # available, without ever failing the run. Make it required
-          # (optional: false) if the repo goes public.
-          - os: macos-latest
-            optional: true
+        os:
+          - windows-latest
+          - macos-latest
+          # - ubuntu-latest
+          # Disabled: the two student platforms are Windows and macOS;
+          # the .sh paths validated on Ubuntu are nearly identical to
+          # macOS. Re-enable if Linux CI coverage is wanted.
+          # NOTE: hosted macOS runners may sit queued then cancel on
+          # private repos under the free plan — if cancelled macOS
+          # runs are noise, comment it too until the repo is public.
     steps:
       - uses: actions/checkout@v4
 
