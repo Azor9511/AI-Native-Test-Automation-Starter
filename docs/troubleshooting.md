@@ -70,6 +70,11 @@ Authentication Required`, certificate/SSL errors.
   `NODE_TLS_REJECT_UNAUTHORIZED=0`) — it weakens security for all npm
   traffic. If certificates are being intercepted, that is an IT
   policy matter to escalate, not work around.
+- If this happens during Lab 0 and cannot be fixed quickly, the
+  ready-to-run project in [../starter/README.md](../starter/README.md)
+  keeps you moving — note that it also requires npm registry access,
+  so a blocked network still needs a different network or IT
+  escalation.
 
 ## Playwright browser download failures
 
@@ -84,6 +89,10 @@ Authentication Required`, certificate/SSL errors.
 - If blocked on a corporate device, escalate: the requirement is
   "allow downloads of Playwright browser binaries" (see the IT list
   below).
+- During Lab 0, the [../starter/README.md](../starter/README.md)
+  recovery project bypasses scaffolding issues but still needs to
+  download the same browser binaries — switch networks or escalate if
+  the downloads themselves are blocked.
 
 ## GitHub inaccessible
 

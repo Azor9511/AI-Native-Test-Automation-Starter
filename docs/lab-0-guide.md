@@ -66,6 +66,11 @@ Install browsers → Yes
 > versions — the intent stays the same: TypeScript, default `tests`
 > folder, include the GitHub Actions workflow, install browsers.
 
+If `npm init playwright` fails or the generated project is broken and
+the cause cannot be fixed in under ~5 minutes, switch to the ready
+project in [../starter/README.md](../starter/README.md) and continue
+from Step 4 there.
+
 ## Step 4 — Execute the Tests
 
 ``` bash
@@ -74,6 +79,12 @@ npx playwright test
 
 Expected: the example tests run and pass (Chromium/Firefox/WebKit
 depending on the generated configuration).
+
+If browser installation or test execution fails and
+[troubleshooting.md](troubleshooting.md) does not resolve it quickly,
+use the starter project: `cd starter && npm ci &&
+npx playwright install && npx playwright test` (see
+[../starter/README.md](../starter/README.md)).
 
 ## Step 5 — Open the HTML Report
 

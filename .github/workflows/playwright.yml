@@ -1,0 +1,37 @@
+# Runs the starter/ Playwright project on every push and PR so the
+# recovery path itself stays green — and so students who publish this
+# repository see a real "Playwright Tests" run in their Actions tab.
+name: Playwright Tests
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: starter
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: npm
+          cache-dependency-path: starter/package-lock.json
+
+      - run: npm ci
+
+      - run: npx playwright install --with-deps
+
+      - run: npx playwright test
+
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: playwright-report
+          path: starter/playwright-report/
+          retention-days: 30

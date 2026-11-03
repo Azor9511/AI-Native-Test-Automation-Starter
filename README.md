@@ -15,7 +15,21 @@ during the course.
 - Validates your environment (Node.js, npm, Git, connectivity).
 - Provides platform setup and troubleshooting documentation.
 - Detects common issues early and provides a recovery path
-  (`/starter`) so a broken environment never blocks Lab 0.
+  (`/starter`) — a ready-to-run Playwright + TypeScript project — so a
+  broken environment never blocks Lab 0.
+
+## Repository structure
+
+``` text
+├── docs/                            # Checklists, setup, troubleshooting, Lab 0
+├── scripts/                         # verify-environment.{sh,ps1} validators
+├── starter/                         # Ready-to-run Playwright + TypeScript
+│   │                                # recovery project (tests in starter/tests/)
+│   └── tests/example.spec.ts
+└── .github/workflows/
+    ├── validate-kit.yml             # Runs the environment validators
+    └── playwright.yml               # Runs the starter Playwright tests
+```
 
 ## Prerequisites
 
@@ -74,11 +88,13 @@ Run the validator for your platform:
 | [docs/macos-setup.md](docs/macos-setup.md) | macOS verification instructions |
 | [docs/troubleshooting.md](docs/troubleshooting.md) | Symptom-based fixes and corporate-IT escalation |
 | [docs/lab-0-guide.md](docs/lab-0-guide.md) | Step-by-step Lab 0 guide |
-| [starter/README.md](starter/README.md) | Recovery path when the environment cannot be fixed quickly |
+| [starter/README.md](starter/README.md) | Ready Playwright project — recovery path when the environment cannot be fixed quickly |
 
 ## Scope
 
-This is **Starter Kit v1**. It intentionally does not include Page
-Objects, API client architecture, fixtures, custom reporters, or CI/CD
-beyond validating that a workflow runs. Those are course topics you
-will build later.
+This is **Starter Kit v1**. The kit ships a plain, ready-to-run
+Playwright project under `starter/` as the recovery path — it is the
+standard initializer output, not a framework. The kit intentionally
+does not include Page Objects, API client architecture, fixtures,
+custom reporters, or CI/CD beyond validating that a workflow runs.
+Those are course topics you will build later.
