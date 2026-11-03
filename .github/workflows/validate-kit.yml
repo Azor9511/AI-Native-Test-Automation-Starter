@@ -10,16 +10,27 @@ on:
 
 jobs:
   verify-environment:
-    name: ${{ matrix.os }}
+    name: ${{ matrix.os }}${{ matrix.optional && ' (best-effort)' || '' }}
+    runs-on: ${{ matrix.os }}
+    continue-on-error: ${{ matrix.optional }}
     strategy:
       fail-fast: false
-        # macos-13 (Intel) instead of macos-latest: the Apple Silicon
-        # pool is frequently unavailable for private repos on free
-        # plans — jobs sit queued until cancelled. Switch back to
-        # macos-latest if the repo goes public or the account is on a
-        # paid plan.
-        os: [windows-latest, macos-13, ubuntu-latest]
-    runs-on: ${{ matrix.os }}
+      matrix:
+        include:
+          # Required checks — hosted Windows/Linux runners provision
+          # reliably on free plans.
+          - os: windows-latest
+            optional: false
+          - os: ubuntu-latest
+            optional: false
+          # Best-effort: hosted macOS runners are frequently
+          # unavailable for private repos on free plans — jobs sit
+          # queued ~15 min then get cancelled. Kept so the .sh is
+          # still validated on real BSD tools when a runner is
+          # available, without ever failing the run. Make it required
+          # (optional: false) if the repo goes public.
+          - os: macos-latest
+            optional: true
     steps:
       - uses: actions/checkout@v4
 
