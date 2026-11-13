@@ -88,6 +88,7 @@ Run the validator for your platform:
 | [docs/macos-setup.md](docs/macos-setup.md) | macOS verification instructions |
 | [docs/troubleshooting.md](docs/troubleshooting.md) | Symptom-based fixes and corporate-IT escalation |
 | [docs/lab-0-guide.md](docs/lab-0-guide.md) | Step-by-step Lab 0 guide |
+| [docs/api-interception-mocking.md](docs/api-interception-mocking.md) | Interceptación de tráfico del navegador y mocking de respuestas API con Playwright (#05B) |
 | [starter/README.md](starter/README.md) | Ready Playwright project — recovery path when the environment cannot be fixed quickly |
 
 ## Scope
