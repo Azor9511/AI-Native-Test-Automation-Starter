@@ -22,7 +22,7 @@ export default defineConfig({
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: [['list'], ['html']],
+  reporter: [['list'], ['html'], ['json', { outputFile: 'test-results/results.json' }]],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('')`. */
@@ -39,19 +39,19 @@ export default defineConfig({
   projects: [
     {
       name: 'chromium',
-      testIgnore: /api\//,
+      testIgnore: [/api\//, /observability\//],
       use: { ...devices['Desktop Chrome'] },
     },
 
     {
       name: 'firefox',
-      testIgnore: /api\//,
+      testIgnore: [/api\//, /observability\//],
       use: { ...devices['Desktop Firefox'] },
     },
 
     {
       name: 'webkit',
-      testIgnore: /api\//,
+      testIgnore: [/api\//, /observability\//],
       use: { ...devices['Desktop Safari'] },
     },
 
@@ -59,6 +59,12 @@ export default defineConfig({
       name: 'api',
       testMatch: /api\/.*\.spec\.ts/,
       use: { baseURL: 'https://dummyjson.com' },
+    },
+
+    {
+      // Pure logic tests for observability/ - no browser, no network.
+      name: 'observability',
+      testMatch: /observability\/.*\.spec\.ts/,
     },
 
     /* Test against mobile viewports. */

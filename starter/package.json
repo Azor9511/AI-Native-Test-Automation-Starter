@@ -6,6 +6,10 @@
   "scripts": {
     "typecheck": "tsc --noEmit -p tsconfig.json",
     "test": "playwright test",
+    "obs:build": "tsc -p tsconfig.observability.json",
+    "obs:test": "playwright test --project=observability",
+    "obs:normalize": "npm run obs:build --silent && node observability/dist/cli.js normalize",
+    "obs:report": "npm run obs:build --silent && node observability/dist/cli.js report",
     "test:ui": "playwright test --ui",
     "show-report": "playwright show-report"
   },
